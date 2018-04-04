@@ -118,7 +118,7 @@ public class Buffer {
       lastUsed = System.currentTimeMillis();
       modifiedBy = txnum;
       if (lsn >= 0)
-         logSequenceNumber = lsn;
+	      logSequenceNumber = lsn;
       contents.setString(offset, val);
    }
 
