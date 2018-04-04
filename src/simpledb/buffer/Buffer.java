@@ -187,7 +187,7 @@ public class Buffer {
       blk = contents.append(filename);
       pins = 0;
    }
-   
+
    public String toString(){
       return "BufferID: "+modifiedBy+"\nBlock: "+blk+"\nPinned: "+isPinned();
    }
