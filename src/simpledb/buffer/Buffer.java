@@ -239,7 +239,11 @@ public class Buffer {
       refbit--;
    }
 
+   /**
+    * CS4432-Project1:
+    * @return multiline string containing the transactionID of the block's most recent modification, the block num, and it's pinned status
+    */
    public String toString(){
-      return "BufferID: "+modifiedBy+"\nBlock: "+blk+"\nPinned: "+isPinned();
+      return "TransactionID: "+modifiedBy+"\nBlock: "+blk+"\nPinned: "+isPinned();
    }
 }

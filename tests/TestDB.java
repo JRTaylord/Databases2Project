@@ -10,6 +10,8 @@ import org.junit.Test;
 import java.sql.*;
 
 /**
+ * CS4432-Project1:
+ * For testing the overall functionality of the db
  * Must have the database running in the background to run general tests
  */
 public class TestDB {
@@ -17,6 +19,10 @@ public class TestDB {
     Connection conn;
     Statement stmt;
 
+    /**
+     * CS4432-Project1:
+     * Creates the tables for testing the overall db functionality
+     */
     @Before
     public void setup() {
         conn = null;
@@ -41,6 +47,11 @@ public class TestDB {
             e.printStackTrace();
         }
     }
+
+    /**
+     * CS4432-Project1:
+     * Tests selection from the database after inserting one entry into the student table
+     */
     @Test
     public void testSelect(){
         try {
@@ -61,6 +72,10 @@ public class TestDB {
         }
     }
 
+    /**
+     * CS4432-Project1:
+     * Cleans up the tables after each test
+     */
     @After
     public void cleanup(){
         try{
@@ -70,11 +85,11 @@ public class TestDB {
             s = "DELETE FROM STUDENT";
             stmt.executeUpdate(s);
 
-            s = "DROP TABLE DEPT";
-            stmt.executeUpdate(s);
+            //s = "DROP TABLE DEPT";
+            //stmt.executeUpdate(s);
 
-            s = "DROP TABLE STUDENT";
-            stmt.executeUpdate(s);
+            //s = "DROP TABLE STUDENT";
+            //stmt.executeUpdate(s);
         } catch (SQLException e){
             e.printStackTrace();
         }

@@ -224,6 +224,11 @@ class BasicBufferMgr {
       return null;
    }
 
+   /**
+    * CS4432-Project1:
+    * runs through each buffer in its bufferpool and calls to string on each buffer
+    * @return
+    */
    public String toString(){
       String out = "";
       for (Buffer b :
