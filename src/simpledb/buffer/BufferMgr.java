@@ -122,6 +122,10 @@ public class BufferMgr {
       return System.currentTimeMillis() - starttime > MAX_TIME;
    }
 
+   /**
+    * calls the toString method of the wrapped SimpleBufferMgr
+    * @return
+    */
    public String toString(){
       return bufferMgr.toString();
    }

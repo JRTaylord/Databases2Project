@@ -221,6 +221,10 @@ class BasicBufferMgr {
       return null;
    }
 
+   /**
+    * runs through each buffer in its bufferpool and calls to string on each buffer
+    * @return
+    */
    public String toString(){
       String out = "";
       for (Buffer b :

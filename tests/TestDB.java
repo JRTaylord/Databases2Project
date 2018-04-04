@@ -70,11 +70,11 @@ public class TestDB {
             s = "DELETE FROM STUDENT";
             stmt.executeUpdate(s);
 
-            s = "DROP TABLE DEPT";
-            stmt.executeUpdate(s);
+            //s = "DROP TABLE DEPT";
+            //stmt.executeUpdate(s);
 
-            s = "DROP TABLE STUDENT";
-            stmt.executeUpdate(s);
+            //s = "DROP TABLE STUDENT";
+            //stmt.executeUpdate(s);
         } catch (SQLException e){
             e.printStackTrace();
         }
