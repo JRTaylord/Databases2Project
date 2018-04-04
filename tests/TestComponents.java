@@ -4,7 +4,16 @@ import simpledb.buffer.BufferMgr;
 import simpledb.file.Block;
 import simpledb.file.Page;
 
+/**
+ * CS4432-Project1:
+ * Tests the subcomponents of the dbms
+ */
 public class TestComponents {
+
+    /**
+     * CS4432-Project1:
+     * Tests if the bufferMgr can successfully pin
+     */
     @Test
     public void testBufferMgrPin(){
         BufferMgr bufferMgr = new BufferMgr(5);

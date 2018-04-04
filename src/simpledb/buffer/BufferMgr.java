@@ -123,6 +123,7 @@ public class BufferMgr {
    }
 
    /**
+    * CS4432-Project1:
     * calls the toString method of the wrapped SimpleBufferMgr
     * @return
     */
