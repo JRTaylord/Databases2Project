@@ -116,4 +116,13 @@ class BasicBufferMgr {
          return buff;
       return null;
    }
+
+   public String toString(){
+      String out = "";
+      for (Buffer b :
+              bufferpool) {
+         out = out + b.toString() + "\n";
+      }
+      return out;
+   }
 }

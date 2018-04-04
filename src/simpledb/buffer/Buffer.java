@@ -187,4 +187,12 @@ public class Buffer {
       blk = contents.append(filename);
       pins = 0;
    }
+
+   /**
+    * TODO add bufferID printing
+    * @return
+    */
+   public String toString(){
+      return "BufferID: "+"\nBlock: "+blk+"\nPinned: "+isPinned();
+   }
 }

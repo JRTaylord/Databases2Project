@@ -1,4 +1,7 @@
 
+import org.junit.After;
+import org.junit.Before;
+import simpledb.buffer.BufferMgr;
 import simpledb.server.SimpleDB;
 import simpledb.remote.*;
 import static org.junit.Assert.assertEquals;
@@ -11,14 +14,16 @@ import java.sql.Statement;
 
 public class TestDB {
 
-    @Test
-    public void dBTest(){
-        SimpleDB.init("TestDB");
-        Connection conn = null;
-        try{
+    Connection conn;
+    Statement stmt;
+
+    @Before
+    public void setup() {
+        conn = null;
+        try {
             Driver d = new SimpleDriver();
-            conn = d.connect("jdbc:simpledb://localhost/TestDB", null);
-            Statement stmt = conn.createStatement();
+            conn = d.connect("jdbc:simpledb://localhost", null);
+            stmt = conn.createStatement();
 
             String s = "create table STUDENT(SId int, SName varchar(10), MajorId int, GradYear int)";
             stmt.executeUpdate(s);
@@ -34,9 +39,10 @@ public class TestDB {
                     "(7, 'art', 30, 2004)",
                     "(8, 'pat', 20, 2001)",
                     "(9, 'lee', 10, 2004)"};
-            for (int i=0; i<studvals.length; i++)
+            for (int i = 0; i < studvals.length; i++)
                 stmt.executeUpdate(s + studvals[i]);
             System.out.println("STUDENT records inserted.");
+
 
             s = "create table DEPT(DId int, DName varchar(8))";
             stmt.executeUpdate(s);
@@ -46,11 +52,17 @@ public class TestDB {
             String[] deptvals = {"(10, 'compsci')",
                     "(20, 'math')",
                     "(30, 'drama')"};
-            for (int i=0; i<deptvals.length; i++)
+            for (int i = 0; i < deptvals.length; i++)
                 stmt.executeUpdate(s + deptvals[i]);
             System.out.println("DEPT records inserted.");
-
-            s = "DELETE * FROM DEPT";
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    @After
+    public void cleanup(){
+        try{
+            String s = "DELETE * FROM DEPT";
             stmt.executeUpdate(s);
 
             s = "DROP TABLE DEPT";
@@ -61,7 +73,6 @@ public class TestDB {
 
             s = "DROP TABLE STUDENT";
             stmt.executeUpdate(s);
-
         } catch (SQLException e){
             e.printStackTrace();
         }
