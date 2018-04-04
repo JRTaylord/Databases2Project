@@ -1,6 +1,7 @@
 package simpledb.buffer;
 
 import simpledb.file.*;
+import simpledb.server.Startup;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -21,6 +22,8 @@ class BasicBufferMgr {
    private HashMap<Block, Buffer> bufferMap = new HashMap<>();
    //CS4432-Project1: Clock replacement pointer
    private int clockPtr = 0;
+   //CS4432-Project1: Flag specifying which replacement policy to use. True is clock, false is LRU.
+   private boolean policyFlag = Startup.getPolicy();
 
    /*
     CS4432-Project1: Added indices of empty frames to list as they are created
@@ -197,10 +200,10 @@ class BasicBufferMgr {
       for(; localPtr < bufferpool.length; localPtr++) {
          buff = bufferpool[localPtr];
          if(!buff.isPinned()) {
-            if(buff.getRefbit() == 1)
+            if(buff.getRefbit() == 1) {
                buff.setRefbit();
+            }
             else {
-               //Free and reuse buffer
                clockPtr = localPtr + 1;
                return buff;
             }
