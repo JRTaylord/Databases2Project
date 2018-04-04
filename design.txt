@@ -1,0 +1,8 @@
+2.1:
+	The updated empty frame selection uses a linked list of buffers populated with the unpinned buffers. The list is updated in the unpin method. The chooseUnpinnedBuffer method pops the top buffer off of the list and returns it, returning null if the list is empty.
+
+2.2:
+	The updated search for a specific disk block uses a hashmap with blocks as the keys and buffers as the values. The values of the hashmap are updated each time a block is pinned. The findExistingBuffer method gets the buffer from the given block and makes the same comparison that the original code did to verify the block. It then returns the buffer or null if the block cannot be found.
+
+2.3:
+	The LRU and clock policies are written in the LRU and clock methods in BasicBufferMgr. The Buffer class was updated with a last used time variable and a refbit variable. The LRU method iterates through the full pool of buffers, comparing the last used times to find the oldest time on an unpinned buffer, then that buffer is returned. The clock method uses a global int as the starting pointer, then cycles through the buffer pool in order checking the pin and refbit. The first buffer eligible for replacement is returned, and the clock pointer is updated with the current index.

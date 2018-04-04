@@ -19,23 +19,30 @@ public class Buffer {
    private int pins = 0;
    private int modifiedBy = -1;  // negative means not modified
    private int logSequenceNumber = -1; // negative means no corresponding log record
+   //CS4432-Project1: Time variable to hold the system time at the buffer's last use
+   private long lastUsed = 0;
+   //CS4432-Project1: Refbit for use with the clock replacement policy
+   private int refbit = 1;
 
    /**
-    * Creates a new buffer, wrapping a new 
-    * {@link simpledb.file.Page page}.  
-    * This constructor is called exclusively by the 
-    * class {@link BasicBufferMgr}.   
-    * It depends on  the 
-    * {@link simpledb.log.LogMgr LogMgr} object 
+    * Creates a new buffer, wrapping a new
+    * {@link simpledb.file.Page page}.
+    * This constructor is called exclusively by the
+    * class {@link BasicBufferMgr}.
+    * It depends on  the
+    * {@link simpledb.log.LogMgr LogMgr} object
     * that it gets from the class
     * {@link simpledb.server.SimpleDB}.
     * That object is created during system initialization.
-    * Thus this constructor cannot be called until 
+    * Thus this constructor cannot be called until
     * {@link simpledb.server.SimpleDB#initFileAndLogMgr(String)} or
     * is called first.
     */
    public Buffer() {}
-   
+
+   /*
+   CS4432-Project1: Sets the time that this buffer was last used
+    */
    /**
     * Returns the integer value at the specified offset of the
     * buffer's page.
@@ -45,9 +52,13 @@ public class Buffer {
     * @return the integer value at that offset
     */
    public int getInt(int offset) {
+      lastUsed = System.currentTimeMillis();
       return contents.getInt(offset);
    }
 
+   /*
+   CS4432-Project1: Sets the time that this buffer was last used
+    */
    /**
     * Returns the string value at the specified offset of the
     * buffer's page.
@@ -57,9 +68,13 @@ public class Buffer {
     * @return the string value at that offset
     */
    public String getString(int offset) {
+      lastUsed = System.currentTimeMillis();
       return contents.getString(offset);
    }
 
+   /*
+   CS4432-Project1: Sets the time that this buffer was last used
+    */
    /**
     * Writes an integer to the specified offset of the
     * buffer's page.
@@ -75,12 +90,16 @@ public class Buffer {
     * @param lsn the LSN of the corresponding log record
     */
    public void setInt(int offset, int val, int txnum, int lsn) {
+      lastUsed = System.currentTimeMillis();
       modifiedBy = txnum;
       if (lsn >= 0)
-	      logSequenceNumber = lsn;
+         logSequenceNumber = lsn;
       contents.setInt(offset, val);
    }
 
+   /*
+   CS4432-Project1: Sets the time that this buffer was last used
+    */
    /**
     * Writes a string to the specified offset of the
     * buffer's page.
@@ -96,9 +115,10 @@ public class Buffer {
     * @param lsn the LSN of the corresponding log record
     */
    public void setString(int offset, String val, int txnum, int lsn) {
+      lastUsed = System.currentTimeMillis();
       modifiedBy = txnum;
       if (lsn >= 0)
-	      logSequenceNumber = lsn;
+         logSequenceNumber = lsn;
       contents.setString(offset, val);
    }
 
@@ -159,6 +179,9 @@ public class Buffer {
       return txnum == modifiedBy;
    }
 
+   /*
+   CS4432-Project1: Sets the time that this buffer was last used
+    */
    /**
     * Reads the contents of the specified block into
     * the buffer's page.
@@ -171,8 +194,13 @@ public class Buffer {
       blk = b;
       contents.read(blk);
       pins = 0;
+      lastUsed = System.currentTimeMillis();
+      refbit = 1;
    }
 
+   /*
+   CS4432-Project1: Sets the time that this buffer was last used
+    */
    /**
     * Initializes the buffer's page according to the specified formatter,
     * and appends the page to the specified file.
@@ -186,8 +214,31 @@ public class Buffer {
       fmtr.format(contents);
       blk = contents.append(filename);
       pins = 0;
+      lastUsed = System.currentTimeMillis();
+      refbit = 1;
    }
-   
+
+   /*
+   CS4432-Project1: Gets the time that this buffer was last used
+    */
+   long getLastUsed() {
+      return lastUsed;
+   }
+
+   /*
+   CS4432-Project1: Gets the current refbit value for this buffer
+    */
+   int getRefbit() {
+      return refbit;
+   }
+
+   /*
+   CS4432-Project1: Sets the current refbit value for this buffer to 0
+    */
+   void setRefbit() {
+      refbit--;
+   }
+
    public String toString(){
       return "BufferID: "+modifiedBy+"\nBlock: "+blk+"\nPinned: "+isPinned();
    }
