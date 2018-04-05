@@ -5,7 +5,7 @@ import java.rmi.registry.*;
 
 
 public class Startup {
-    //CS4432-Project1: Global flag to set which replacement policy is used. 0 is LRU, 1 is clock, 2 is longest since unpinning
+    //CS4432-Project1: Global flag to set which replacement policy is used. 0 is LRU, 1 is clock, 2 is FIFO
     static int policyFlag = 2;
 
    public static void main(String args[]) throws Exception {

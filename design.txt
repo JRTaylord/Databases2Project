@@ -1,5 +1,5 @@
 2.1:
-	The updated empty frame selection uses a linked list of buffers populated with the unpinned buffers. The list is updated in the unpin method. The chooseUnpinnedBuffer method pops the top buffer off of the list and returns it, returning null if the list is empty.
+	The updated empty frame selection uses a linked list of buffers populated with the unpinned buffers and a FIFO policy. The list is updated in the unpin method. The chooseUnpinnedBuffer method pops the top buffer off of the list and returns it, returning null if the list is empty.
 
 2.2:
 	The updated search for a specific disk block uses a hashmap with blocks as the keys and buffers as the values. The values of the hashmap are updated each time a block is pinned. The findExistingBuffer method gets the buffer from the given block and makes the same comparison that the original code did to verify the block. It then returns the buffer or null if the block cannot be found.
