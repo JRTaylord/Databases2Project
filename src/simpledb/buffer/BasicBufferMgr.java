@@ -4,6 +4,7 @@ import simpledb.file.*;
 import simpledb.server.Startup;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
@@ -19,7 +20,7 @@ class BasicBufferMgr {
    //CS4432-Project1: Added list of empty buffer frames
    private LinkedList<Buffer> unpinnedBuffers = new LinkedList<>();
    //CS4432-Project1: Added hashmap of blocks to buffer frames
-   private HashMap<Block, Buffer> bufferMap = new HashMap<>();
+   private Hashtable<Block, Buffer> bufferMap = new Hashtable<>();
    //CS4432-Project1: Clock replacement pointer
    private int clockPtr = 0;
    //CS4432-Project1: Flag specifying which replacement policy to use. 0 is LRU, 1 is clock, 2 is longest since unpinning
@@ -142,12 +143,12 @@ class BasicBufferMgr {
    CS4432-Project1: Uses hashmap to find buffer containing blk
     */
    private Buffer findExistingBuffer(Block blk) {
-//      for (Buffer buff : bufferpool) {
-//         Block b = buff.block();
-//         if (b != null && b.equals(blk))
-//            return buff;
-//      }
-//      return null;
+      //for (Buffer buff : bufferpool) {
+      //   Block b = buff.block();
+      //   if (b != null && b.equals(blk))
+      //      return buff;
+      //}
+      //return null;
       Buffer buff = bufferMap.get(blk);
       Block b = buff.block();
       if(b != null && b.equals(blk))
