@@ -1,3 +1,4 @@
+AS A NOTE: this bug may be related to the high complexity of the backend rendering direct testing very difficult
 On reading the blocks content to the buffer it throws a NullPointer exception following this stack trace:
     at simpledb.file.Page.read(Page.java:91)
 	at simpledb.buffer.Buffer.assignToBlock(Buffer.java:195)

@@ -45,7 +45,7 @@ public class TestComponents {
     public void testBufferMgrPin(){
         int availableBlocks = bufferMgr.available();
         assertEquals(buffers,availableBlocks);
-        Buffer buffer0 = bufferMgr.pinNew(block0.fileName(),);
+        Buffer buffer0 = bufferMgr.pin(block0);
         availableBlocks = bufferMgr.available();
         assertEquals(buffers-1,availableBlocks);
         //CS4432-Project1: unpins block0
