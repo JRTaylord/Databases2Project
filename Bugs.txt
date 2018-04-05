@@ -1,0 +1,3 @@
+On reading the blocks content to the buffer it throws a NullPointer exception following this stack trace:
+    at simpledb.file.Page.read(Page.java:91)
+	at simpledb.buffer.Buffer.assignToBlock(Buffer.java:195)
