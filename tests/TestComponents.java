@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestComponents {
 
-    int buffers = 100;
+    int buffers = 5;
     BufferMgr bufferMgr = new BufferMgr(buffers);
 
     Block block0, block1, block2, block3, block4, block5, block6, block7, block8, block9;
@@ -45,7 +45,7 @@ public class TestComponents {
     public void testBufferMgrPin(){
         int availableBlocks = bufferMgr.available();
         assertEquals(buffers,availableBlocks);
-        Buffer buffer0 = bufferMgr.pin(block0);
+        Buffer buffer0 = bufferMgr.pinNew(block0.fileName(),);
         availableBlocks = bufferMgr.available();
         assertEquals(buffers-1,availableBlocks);
         //CS4432-Project1: unpins block0
@@ -59,5 +59,21 @@ public class TestComponents {
         //CS4432-Project1: repins block0
         bufferMgr.pin(block0);
         assertEquals(buffers-2,availableBlocks);
+    }
+
+    /**
+     * CS4432-Project1:
+     * adds more than 5 blocks to the buffer manager and checks to see if that number stays at 0 as additional blocks are added
+     */
+    @Test
+    public void testBufferReplacement(){
+        bufferMgr.unpin(bufferMgr.pin(block0));
+        bufferMgr.unpin(bufferMgr.pin(block1));
+        bufferMgr.unpin(bufferMgr.pin(block2));
+        bufferMgr.unpin(bufferMgr.pin(block3));
+        bufferMgr.unpin(bufferMgr.pin(block4));
+        assertEquals(0,bufferMgr.available());
+        bufferMgr.unpin(bufferMgr.pin(block5));
+        assertEquals(0,bufferMgr.available());
     }
 }

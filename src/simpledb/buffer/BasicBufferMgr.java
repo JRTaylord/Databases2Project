@@ -24,7 +24,7 @@ class BasicBufferMgr {
    //CS4432-Project1: Clock replacement pointer
    private int clockPtr = 0;
    //CS4432-Project1: Flag specifying which replacement policy to use. 0 is LRU, 1 is clock, 2 is longest since unpinning
-   private int policyFlag = Startup.getPolicy();
+   public int policyFlag = Startup.getPolicy();
 
    /*
     CS4432-Project1: Added indices of empty frames to list as they are created

@@ -1,0 +1,14 @@
+The testing files for this program are split into two files, TestDB (tests the SQL queries and overall function of the db)
+and TestComponents (which tests the function of the data base components)
+
+Our testing classes use JUnit-4.12 to validate their results instead of print statements
+
+TestDB tests a single basic SQL Statement by inserting a single record into a table and requesting its attributes.
+MUST HAVE THE DATABASE RUNNING THROUGH startup SERVER SIMULTANEOUSLY TO WORK
+
+TestComponents tests the BufferMgr class and by extension the BasicBufferMgr and Buffer classes.
+Unfortunately, these tests are not fully functional because of the immense complexity of the interrelated backend components.
+testBufferMgrPin is supposed to test that pinning is working properly and that a repinned block doesn't change the number
+of available blocks
+testBufferReplacement is supposed to test that the bufferMgr is keeping an accurate count on the number of available
+buffers even when it needs to replace a block
