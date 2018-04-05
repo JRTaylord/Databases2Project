@@ -150,6 +150,9 @@ class BasicBufferMgr {
       //}
       //return null;
       Buffer buff = bufferMap.get(blk);
+      if(buff==null){
+         return null;
+      }
       Block b = buff.block();
       if(b != null && b.equals(blk))
          return buff;

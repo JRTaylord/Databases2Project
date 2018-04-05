@@ -22,7 +22,7 @@ public class TestComponents {
     @Before
     public void startup(){
         try{
-            Startup.main(new String[]{"TestDB","LRU"});
+            //Startup.main(new String[]{"TestDB","LRU"});
             block0 = new Block("12 Rules for Life",0);
             block1 = new Block("The GULAG Archipelago",1);
             block2 = new Block("Demons",2);
