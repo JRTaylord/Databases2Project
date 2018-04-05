@@ -22,8 +22,8 @@ class BasicBufferMgr {
    private HashMap<Block, Buffer> bufferMap = new HashMap<>();
    //CS4432-Project1: Clock replacement pointer
    private int clockPtr = 0;
-   //CS4432-Project1: Flag specifying which replacement policy to use. True is clock, false is LRU.
-   private boolean policyFlag = Startup.getPolicy();
+   //CS4432-Project1: Flag specifying which replacement policy to use. 0 is LRU, 1 is clock, 2 is longest since unpinning
+   private int policyFlag = Startup.getPolicy();
 
    /*
     CS4432-Project1: Added indices of empty frames to list as they are created
@@ -156,7 +156,7 @@ class BasicBufferMgr {
    }
 
    /*
-   CS4432-Project1: This function removes and returns the first empty or unpinned buffer from the list
+   CS4432-Project1: This function removes and returns the first empty or unpinned buffer from the list using the specified policy
     */
    private Buffer chooseUnpinnedBuffer() {
 //      for (Buffer buff : bufferpool)
@@ -164,12 +164,18 @@ class BasicBufferMgr {
 //            return buff;
 //         }
 //      return null;
-      try {
-         Buffer buff = unpinnedBuffers.pop();
-         return buff;
-      } catch (NoSuchElementException e) {
-         return null;
-      }
+       if(policyFlag == 0)
+           return LRU();
+       else if(policyFlag == 1)
+           return Clock();
+       else {
+           try {
+               Buffer buff = unpinnedBuffers.pop();
+               return buff;
+           } catch (NoSuchElementException e) {
+               return null;
+           }
+       }
    }
 
    /*
